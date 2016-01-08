@@ -8,44 +8,55 @@
         audiochannels[a]['finished'] = -1;
     }
 
-    var user = "SanchezSobrino"
-    var base_url = "https://api.github.com"
-    ajax_get(base_url + "/users/" + user + "/repos?sort=pushed",
+    var user = getUrlVars()["user"];
+    if(!user) {
+        user = "SanchezSobrino";
+    }
+
+    var base_url = "https://api.github.com";
+    ajax_get(base_url + "/users/" + user,
              function onSuccess(responseText) {
-                 var latest_repo = JSON.parse(responseText)[0];
-                 ajax_get(base_url + "/repos/" + user + "/" + latest_repo.name + "/commits",
-                          function onSuccess(responseText) {
-                              var latest_commit = JSON.parse(responseText)[0];
+                 ajax_get(base_url + "/users/" + user + "/repos?sort=pushed",
+                 function onSuccess(responseText) {
+                     var latest_repo = JSON.parse(responseText)[0];
+                     ajax_get(base_url + "/repos/" + user + "/" + latest_repo.name + "/commits",
+                              function onSuccess(responseText) {
+                                  var latest_commit = JSON.parse(responseText)[0];
 
-                              var repo_url = latest_repo.html_url;
-                              var repo_name = latest_repo.name;
-                              var author = latest_commit.commit.author.name;
-                              var author_url = "https://github.com/" + author;
-                              var commit_msg = latest_commit.commit.message;
-                              var login = latest_commit.author.login;
-                              var commit_sha = latest_commit.sha;
-                              var commit_url = "https://github.com/" + login + "/" + repo_name + "/commit/" + commit_sha;
+                                  var repo_url = latest_repo.html_url;
+                                  var repo_name = latest_repo.name;
+                                  var author = latest_commit.commit.author.name;
+                                  var author_url = "https://github.com/" + author;
+                                  var commit_msg = latest_commit.commit.message;
+                                  var login = latest_commit.author.login;
+                                  var commit_sha = latest_commit.sha;
+                                  var commit_url = "https://github.com/" + login + "/" + repo_name + "/commit/" + commit_sha;
 
-                              document.getElementById("dialog-repo-url").href = repo_url;
-                              document.getElementById("dialog-author-url").href = author_url;
-                              document.getElementById("dialog-commit-url").href = commit_url;
+                                  document.getElementById("dialog-repo-url").href = repo_url;
+                                  document.getElementById("dialog-author-url").href = author_url;
+                                  document.getElementById("dialog-commit-url").href = commit_url;
 
-                              var sentence_1 = "* hey, it seems like the last commit was pushed to ";
-                              printSentence("dialog-text-1", sentence_1, "speech", 0);
-                              printSentence("dialog-repo-url", repo_name, "speech", sentence_1.length);
-                              var sentence_2 = " by ";
-                              printSentence("dialog-text-2", sentence_2, "speech", sentence_1.length + repo_name.length);
-                              printSentence("dialog-author-url", author, "speech", sentence_1.length + repo_name.length + sentence_2.length);
-                              var sentence_3 = ": ";
-                              printSentence("dialog-text-3", sentence_3, "speech", sentence_1.length + repo_name.length + sentence_2.length + author.length);
-                              printSentence("dialog-commit-url", "\"" + commit_msg + "\"", "speech", sentence_1.length + repo_name.length + sentence_2.length + author.length + sentence_3.length);
-                          },
-                          function onError(responseText) {
-                              console.error(responseText);
-                          });
+                                  var sentence_1 = "* hey, it seems like the last commit was pushed to ";
+                                  printSentence("dialog-text-1", sentence_1, "speech", 0);
+                                  printSentence("dialog-repo-url", repo_name, "speech", sentence_1.length);
+                                  var sentence_2 = " by ";
+                                  printSentence("dialog-text-2", sentence_2, "speech", sentence_1.length + repo_name.length);
+                                  printSentence("dialog-author-url", author, "speech", sentence_1.length + repo_name.length + sentence_2.length);
+                                  var sentence_3 = ": ";
+                                  printSentence("dialog-text-3", sentence_3, "speech", sentence_1.length + repo_name.length + sentence_2.length + author.length);
+                                  printSentence("dialog-commit-url", "\"" + commit_msg + "\"", "speech", sentence_1.length + repo_name.length + sentence_2.length + author.length + sentence_3.length);
+                              },
+                              function onError(responseText) {
+                                  console.error(responseText);
+                              });
+                 },
+                 function onError(responseText) {
+                     console.error(responseText);
+                 });
              },
              function onError(responseText) {
-                 console.error(responseText);
+                 var sentence_1 = "* hey, it seems like that user does not exist :( ...)";
+                 printSentence("dialog-text-1", sentence_1, "speech", 0);
              });
 
     function move_dog(speed, delay) {
@@ -74,6 +85,15 @@
     }
     move_dog(0.15, 20000);
 })();
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+
+    return vars;
+}
 
 // Plays a specified audio sound
 // @arg s The id of the audio html tag
