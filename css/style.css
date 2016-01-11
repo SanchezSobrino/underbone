@@ -80,3 +80,10 @@ a {
     width: 139px;
     height: 120px;
 }
+
+#annonying-dog-input {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    width: 184px;
+}

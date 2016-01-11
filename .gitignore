@@ -1,3 +1,4 @@
 .tern-project
 .tern-port
 *_raw*
+*.swp
