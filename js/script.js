@@ -66,11 +66,13 @@
                 var dog = document.getElementById("annonying-dog");
                 dog.style.display = "block";
                 if(dog.style.left == "") {
+                    position = 100 + ((window.innerWidth - 800) / 2) / 8;
                     bg_music.setAttribute('src', 'https://www.youtube.com/embed/woPff-Tpkns?list=PLe1V6p_XPgn7YSEpbRxFyWCTAkdng5xge&autoplay=1&loop=1');
-                    dog.style.left = "135%";
+                    dog.style.left = position + "%";
                 }
                 var pos = parseFloat(dog.style.left, 10);
-                if(pos < -50) {
+                limit = -(((window.innerWidth - 800) / 2 + 160) / 8);
+                if(pos < limit) {
                     dog.style.display = "none";
                     dog.style.left = "";
                     move_dog(0.15, getRandomIntclusive(40000, 60000));
