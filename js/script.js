@@ -55,7 +55,7 @@
                  });
              },
              function onError(responseText) {
-                 var sentence_1 = "* hey, it seems like that user does not exist :( ...)";
+                 var sentence_1 = "* hey, it seems like that user does not exist :( ...";
                  printSentence("dialog-text-1", sentence_1, "speech", 0);
              });
 
@@ -83,9 +83,22 @@
             actually_move_it(speed);
         }, delay);
     }
-    move_dog(0.15, 20000);
+    move_dog(0.15, 5000);
 })();
 
+// Loads the specified user in the input box
+// @arg e The event occured
+function userInput(e) {
+    if(e.keyCode == 13) {
+        var input = document.getElementById('annonying-dog-input');
+        document.location = "index.html?user=" + input.value;
+        return false;
+    }
+    return true;
+}
+
+// Obtains the url variables in a server like way
+// @return A dictionary indexed by the variable names
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {

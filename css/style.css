@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Comic Neue";
+    src: url("../fonts/ComicNeue_Bold.otf");
+}
+
 html {
     background-color: #000;
 }
@@ -52,7 +57,7 @@ a {
     text-indent: -21px;
     position: relative;
     word-break: normal;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-family: "Comic Sans MS", "Comic Sans", "Comic Neue", cursive;
     font-weight: bold;
 }
 
@@ -70,6 +75,8 @@ a {
     left: 50%;
     margin-top: 25px;
     background-image: url('../img/annonying_dog.gif');
-    width: 109px;
-    height: 90px;
+    background-position: 30px 30px;
+    background-repeat: no-repeat;
+    width: 139px;
+    height: 120px;
 }
