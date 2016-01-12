@@ -75,9 +75,9 @@ a {
     left: 50%;
     margin-top: 25px;
     background-image: url('../img/annonying_dog.gif');
-    background-position: 30px 30px;
+    background-position: 60px 30px;
     background-repeat: no-repeat;
-    width: 139px;
+    width: 169px;
     height: 120px;
 }
 
@@ -85,5 +85,5 @@ a {
     background-color: black;
     color: white;
     font-weight: bold;
-    width: 184px;
+    width: 195px;
 }

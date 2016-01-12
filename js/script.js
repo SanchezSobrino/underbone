@@ -26,9 +26,9 @@
                                   var repo_url = latest_repo.html_url;
                                   var repo_name = latest_repo.name;
                                   var author = latest_commit.commit.author.name;
-                                  var author_url = "https://github.com/" + author;
                                   var commit_msg = latest_commit.commit.message;
-                                  var login = latest_commit.author.login;
+                                  var login = latest_commit.html_url.split("/")[3];
+                                  var author_url = "https://github.com/" + login;
                                   var commit_sha = latest_commit.sha;
                                   var commit_url = "https://github.com/" + login + "/" + repo_name + "/commit/" + commit_sha;
 
@@ -66,12 +66,12 @@
                 var dog = document.getElementById("annonying-dog");
                 dog.style.display = "block";
                 if(dog.style.left == "") {
-                    position = 100 + ((window.innerWidth - 800) / 2) / 8;
+                    var position = 100 + ((window.innerWidth - 800) / 2) / 8;
                     bg_music.setAttribute('src', 'https://www.youtube.com/embed/woPff-Tpkns?list=PLe1V6p_XPgn7YSEpbRxFyWCTAkdng5xge&autoplay=1&loop=1');
                     dog.style.left = position + "%";
                 }
                 var pos = parseFloat(dog.style.left, 10);
-                limit = -(((window.innerWidth - 800) / 2 + 160) / 8);
+                var limit = -(((window.innerWidth - 800) / 2 + 160) / 8);
                 if(pos < limit) {
                     dog.style.display = "none";
                     dog.style.left = "";
