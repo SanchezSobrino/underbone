@@ -1,5 +1,9 @@
+var alphabets = "abcdefghijklmnopqrstuvwxyz";
+
 // Document ready
 (function() {
+    alphabets = alphabets.split("");
+
     var channel_max = 3;
     audiochannels = new Array();
     for(a = 0; a < channel_max; a++) {
@@ -134,8 +138,11 @@ function printSentence(id, sentence, sound, delay) {
     for(var i = 0; i < sentence.length; i++) {
         (function(index) {
             setTimeout(function() {
-                document.getElementById(id).innerHTML += sentence[index];
-                play_multi_sound(sound);
+                var character = sentence[index];
+                document.getElementById(id).innerHTML += character;
+                if(alphabets.indexOf(character.toLowerCase()) != -1) {
+                    play_multi_sound(sound);
+                }
             }, (50 * delay) + (50 * i));
         })(i);
     }
